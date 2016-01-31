@@ -1,0 +1,18 @@
+<%= form_for @conn, file_path(@conn, :file_upload),  [multipart: true, as: :session], fn f-> %>
+<div class="form-group">
+  <label>Photo</label>
+  <%= file_input f, :image, [class: "form-control", required: ""] %>
+</div>
+<div class="form-group">
+  <%= submit "Upload", class: "btn btn-primary" %>
+</div>
+<%= end %>
+
+<div>
+  <%= for asset <- @pages.entries do %>
+    <%= if asset.content_type === "image/jpeg"  or asset.content_type === "image/png" do %>
+      <img src="<%= static_path(@conn, "/upload/"<>asset.filename) %>" width="65" height="65"/>
+    <%= end %>
+  <%= end %>
+<div>
+<%= pagination_links @pages %>

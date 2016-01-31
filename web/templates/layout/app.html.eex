@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="<%=Application.get_env(:ginjyo, :lang) %>">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="og:site_name" content="<%=Application.get_env(:ginjyo, :site_title) %>"/>
+  <meta property="og:url" content="<%= Application.get_env(:ginjyo, :schema) <> @conn.host <> @conn.request_path %>" />
+  <%= render_existing(@view_module, "meta." <> @view_template, assigns) ||
+      render(Ginjyo.LayoutView, "meta.html", assigns) %>
+  <%= raw(twitter_meta()) %>
+  <%= raw(get_analytics()) %>
+  <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link href='http://fonts.googleapis.com/css?family=Montserrat:700,400' rel='stylesheet' type='text/css'>
+<!-- Optional theme -->
+<link rel="stylesheet" href="<%=static_path(@conn, "/css/app.css") %>">
+</head>
+<body>
+  <%= if current_user(@conn) do %>
+  <%= render "admin_header.html" , conn: @conn %>
+  <%= else %>
+  <%= render "header.html" , conn: @conn %>
+  <%= end %>
+    <div class="row">
+      <%= if get_flash(@conn, :info) do %>
+      <p class="alert alert-info" role="alert"><%= Gettext.gettext(Ginjyo.Gettext, get_flash(@conn, :info)) %></p>
+      <%= end %>
+      <%= if get_flash(@conn, :error) do %>
+      <p class="alert alert-danger" role="alert"><%= Gettext.gettext(Ginjyo.Gettext, get_flash(@conn, :error)) %></p>
+      <%= end %>
+      <main role="main">
+        <%= render @view_module, @view_template, assigns %>
+      </main>
+    </div>
+  </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+  <script>
+  $(function(){
+    "use strict";
+    var path = $(location).attr('pathname');
+    if (path === '/') {
+      $('a.blog-nav-item.title').addClass('active');
+    } else if (path.match(/^\/articles\/?/) !== null) {
+      $('a.blog-nav-item.article').addClass('active');
+    }
+  });
+  </script>
+  <%= if current_user(@conn) do %>
+  <script>
+  $(function(){
+    "use strict";
+    var path = $(location).attr('pathname');
+    if (path.match(/^\/admin\/users\/?/) !== null) {
+      $('a.blog-nav-item.user').addClass('active');
+    } else if (path.match(/^(\/admin)?\/articles\/?/) !== null) {
+      $('a.dropdown-toggle.article').addClass('active');
+    } else if (path.match(/^\/admin\/file\/?/) !== null) {
+      $('a.blog-nav-item.file').addClass('active');
+    } else if (path.match(/^\/admin\/tag\/?/) !== null) {
+      $('a.blog-nav-item.tag').addClass('active');
+    }
+
+    $('a.dropdown-toggle.article').on('click', function(e) {
+      $('ul.dropdown-menu.article').show();
+      e.stopPropagation();
+    });
+
+    $(document).on('click', function() {
+      $('ul.dropdown-menu.article').hide();
+    });
+
+    $('ul.dropdown-menu.article').on('click', function(e) {
+        e.stopPropagation();
+    });
+
+  });
+  </script>
+  <%= end %>
+</body>
+</html>

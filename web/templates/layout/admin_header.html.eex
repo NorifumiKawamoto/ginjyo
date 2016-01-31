@@ -1,0 +1,28 @@
+<div class="blog-masthead">
+  <div class="container">
+    <nav class="blog-nav">
+      <a class="blog-nav-item title" href="<%= page_path(@conn, :index) %>">Ginjyo</a>
+      <%= link "User", to: user_path(@conn, :index) , class: "blog-nav-item user" %>
+      <li class="dropdown blog-nav-item article">
+        <a href="#" class="dropdown-toggle article" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">
+          Article
+          <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu article">
+          <li><%= link "List", to: article_path(@conn, :index) %></li>
+          <li><%= link "Add", to: article_path(@conn, :new) %></li>
+        </ul>
+      </li>
+      <%= link "File", to: file_path(@conn, :index), class: "blog-nav-item file" %>
+      <%= link "Tag", to: tag_path(@conn, :index), class: "blog-nav-item tag" %>
+      <%= if user = current_user(@conn) do %>
+        <%= link "Log out", to: session_path(@conn, :delete), class: "blog-nav-item navbar-right label-danger" %>
+      <% end %>
+    </nav>
+  </div>
+</div>
+<div class="container">
+  <div class="blog-header">
+    <div class="blog-title"><%= Application.get_env(:ginjyo, :site_title) %></div>
+    <p><%= Application.get_env(:ginjyo, :description) %></p>
+  </div>

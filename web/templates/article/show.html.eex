@@ -1,0 +1,18 @@
+<div class="col-sm-8 blog-main">
+  <div class="blog-post">
+    <p class="blog-post-meta">
+    <%= for tag <- @article.tags do %>
+    <%= tag.name %>
+    <% end %>
+    </p>
+    <h1 class="blog-post-title"><%= @article.title %></h1>
+    <p>
+    <%= markdown(@article.body) %>
+    <%= render "disqus.html", conn: @conn %>
+    <p>
+  </div>
+  <nav>
+  <%= link "Back", to: article_path(@conn, :index) %>
+  </nav>
+</div>
+<%= render "side.html", conn: @conn, all_tags: @all_tags %>

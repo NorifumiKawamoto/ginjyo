@@ -1,0 +1,5 @@
+<meta property="og:type" content="blog"/>
+<meta property="og:image" content="<%= static_path(@conn, Application.get_env(:ginjyo, :site_image))%>" />
+<meta property="og:title" content="<%= Application.get_env(:ginjyo, :site_title) %>"/>
+<meta property="og:description" content="<%= Application.get_env(:ginjyo, :description) %>" />
+<title><%= Application.get_env(:ginjyo, :site_title) %></title>

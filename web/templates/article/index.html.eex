@@ -1,0 +1,21 @@
+<div class="col-sm-8 blog-main">
+  <%= for article <- @pages.entries do %>
+  <div class="blog-post">
+    <a href="<%= article_path(@conn, :show, article) %>">
+      <h2 class="blog-post-title"><%= article.title %></h2>
+      <div class="blog-post-body">
+        <%= String.slice(get_description(article.body), 0, 220) %>
+      </div>
+      <div class="timestamp">
+        Posted <%= article.updated_at %>.
+      </div>
+    </a>
+    <%= if current_user(@conn) do %>
+    <span class="status"><%= get_status_name(article.status) %></span>
+    <%= link "Edit", to: article_path(@conn, :edit, article) %>
+    <%= end %>
+  </div>
+  <%= end %>
+  <%= pagination_links @pages %>
+</div>
+<%= render "side.html", conn: @conn, all_tags: @all_tags %>

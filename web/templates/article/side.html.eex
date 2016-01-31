@@ -1,0 +1,22 @@
+<div class="col-sm-3 col-sm-offset-1 blog-sidebar">
+    <div class="sidebar-module sidebar-module-inset">
+      <h4>About</h4>
+      <p>Auther info</p>
+    </div>
+    <div class="sidebar-module">
+      <h4>Tags</h4>
+      <ol class="list-unstyled">
+        <%= for tag <- @all_tags do %>
+        <li><%= link tag.name, to: article_path(@conn, :tagshow, tag) %></li>
+        <% end %>
+      </ol>
+    </div>
+    <div class="sidebar-module">
+      <h4>Elsewhere</h4>
+      <ol class="list-unstyled">
+        <li><a href="//github.com/<%= Application.get_env(:ginjyo, :github) %>">GitHub</a></li>
+        <li><a href="//twitter.com/<%= Application.get_env(:ginjyo, :twitter) %>">Twitter</a></li>
+        <li><a href="//www.facebook.com/<%= Application.get_env(:ginjyo, :facebook) %>">Facebook</a></li>
+      </ol>
+    </div>
+  </div>

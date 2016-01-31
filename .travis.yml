@@ -1,0 +1,10 @@
+language: elixir
+elixir:
+  - 1.2.2
+otp_release:
+  - 18.2.1
+notifications:
+  email:
+    recipients: <GitHub's user email>
+    on_success: change
+    on_failure: always

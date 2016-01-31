@@ -1,0 +1,5 @@
+<h2>New Article</h2>
+
+<%= render "form.html", changeset: @changeset, all_tags: @all_tags,
+                        action: article_path(@conn, :create) %>
+<%= link "Back", to: article_path(@conn, :index) %>

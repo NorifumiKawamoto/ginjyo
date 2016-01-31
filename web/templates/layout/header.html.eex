@@ -1,0 +1,13 @@
+<div class="blog-masthead">
+  <div class="container">
+    <nav class="blog-nav">
+      <a class="blog-nav-item title" href="<%= page_path(@conn, :index) %>">Ginjyo</a>
+      <%= link "Articles", to: article_path(@conn, :index), class: "blog-nav-item article" %>
+    </nav>
+  </div>
+</div>
+<div class="container">
+  <div class="blog-header">
+    <div class="blog-title"><%= Application.get_env(:ginjyo, :site_title) %></div>
+    <p><%= Application.get_env(:ginjyo, :description) %></p>
+  </div>

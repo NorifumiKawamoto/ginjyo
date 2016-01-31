@@ -1,0 +1,5 @@
+<meta property="og:type" content="article"/>
+<meta property="og:image" content="<%= Application.get_env(:ginjyo, :schema) %><%= @conn.host %><%= static_path(@conn,"/upload"<>@article.thumbnail_path) %>" />
+<meta property="og:title" content="<%= get_title(@article.title) %>" />
+<meta property="og:description" content="<%= get_description(@article.body)%>" />
+<title><%= @article.title %></title>
