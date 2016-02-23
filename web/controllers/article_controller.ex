@@ -13,6 +13,7 @@ defmodule Ginjyo.ArticleController do
     user = Session.current_user(conn)
     all_tags = Repo.all(Tag)
     pages = Article
+    |> Article.show_order()
     |> Article.show_limit(user)
     |> Repo.paginate(page: page)
     render conn, "index.html", pages: pages, all_tags: all_tags
@@ -22,6 +23,7 @@ defmodule Ginjyo.ArticleController do
     user = Session.current_user(conn)
     all_tags = Repo.all(Tag)
     pages = Article
+    |> Article.show_order()
     |> Article.show_limit(user)
     |> Repo.paginate()
     render conn, "index.html", pages: pages, all_tags: all_tags
@@ -39,6 +41,7 @@ defmodule Ginjyo.ArticleController do
     all_tags = Repo.all(Tag)
     pages =  Article
     |> Article.has_tag(id)
+    |> Article.show_order()
     |> Article.show_limit(user)
     |> Repo.paginate(page: page)
     render conn, "index.html", pages: pages, all_tags: all_tags
@@ -49,6 +52,7 @@ defmodule Ginjyo.ArticleController do
     all_tags = Repo.all(Tag)
     pages =  Article
     |> Article.has_tag(id)
+    |> Article.show_order()
     |> Article.show_limit(user)
     |> Repo.paginate()
     render conn, "index.html", pages: pages, all_tags: all_tags

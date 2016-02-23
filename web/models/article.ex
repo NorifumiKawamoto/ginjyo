@@ -66,6 +66,11 @@ defmodule Ginjyo.Article do
     end
   end
 
+  def show_order(query) do
+    from a in query,
+    order_by: [desc: a.updated_at]
+  end
+
   def show_limit(query, user \\ :empty) do
     if is_nil(user) || Enum.empty?(user) do
       from a in query,
