@@ -7,7 +7,7 @@
         <%= String.slice(get_description(article.body), 0, 220) %>
       </div>
       <div class="timestamp">
-        Posted <%= article.updated_at %>.
+        Published <%= article.published_at %>.
       </div>
     </a>
     <%= if current_user(@conn) do %>

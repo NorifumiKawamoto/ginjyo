@@ -27,6 +27,7 @@ defmodule Ginjyo.Article do
     field :body, :string
     field :thumbnail_path, :string
     field :status, :integer
+    field :published_at, Ecto.DateTime
     belongs_to :user, User
     has_many :tag_articles, TagArticle
     has_many :tags, through: [:tag_articles, :tag]
@@ -36,7 +37,7 @@ defmodule Ginjyo.Article do
   end
 
   @required_fields ~w(title body status)
-  @optional_fields ~w(tag_ids thumbnail_path)
+  @optional_fields ~w(tag_ids thumbnail_path published_at)
 
   @doc """
   Creates a changeset based on the `model` and `params`.
@@ -68,7 +69,7 @@ defmodule Ginjyo.Article do
 
   def show_order(query) do
     from a in query,
-    order_by: [desc: a.updated_at]
+    order_by: [desc: a.published_at]
   end
 
   def show_limit(query, user \\ :empty) do
